@@ -26,17 +26,55 @@ const howManyMovies = (movies) => {
 // --- CATALÀ ---
 // La mitjana de puntuació. Extreu la mitjana de totes les puntuacions de les pel·lícules,
 // amb dos decimals.
-function scoresAverage(movies) {}
+
+function scoresAverage(movies) {
+  if (movies.length === 0) return 0; //comprobación
+
+  const sumaDeTot = movies.reduce((acc, movie) => {
+    if (movie.score !== undefined) {
+      return movie.score + acc;
+    } else {
+      return acc;
+    }
+  }, 0);
+
+  const resultat = (sumaDeTot / movies.length).toFixed(2);
+
+  return Number(resultat);
+}
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
 // --- CATALÀ ---
 // Pel·lícules de drama. Extreu la mitjana de les Películes de drama.
-function dramaMoviesScore(movies) {}
+
+function dramaMoviesScore(movies) {
+  const dramaMovies = movies.filter((film) => {
+    return film.genre.includes('Drama');
+  });
+  return scoresAverage(dramaMovies);
+}
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
 // --- CATALÀ ---
 // Ordenar per any. Order per ordre ascendent (creixent) les pel·lícules.
-function orderByYear(movies) {}
+
+function orderByYear(movies) {
+  const copyMovies = movies.map((movie) => movie);
+  copyMovies.sort((a, b) => {
+    if (a.year === b.year) {
+      if (a.title > b.title) {
+        return 1;
+      } else if (a.title < b.title) {
+        return -1;
+      } else {
+        return 0;
+      }
+    } else {
+      return a.year - b.year;
+    }
+  });
+  return copyMovies;
+}
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
 // --- CATALÀ ---
